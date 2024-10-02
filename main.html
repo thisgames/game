@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ориентация устройства</title>
-	    <script>
+    <script>
         function redirect() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -61,6 +61,12 @@
             font-size: 1.2em;
             color: #ffffff; /* Белый текст для ориентации */
         }
+
+        #message {
+            font-size: 1.5em;
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +74,7 @@
         <div class="screen" id="screen"></div>
     </div>
     <div id="orientation">Текущая ориентация: <span id="orientation-value">неизвестно</span></div>
+    <div id="message">Переверните экран, чтобы начать игру</div>
 
     <script>
         const phone = document.getElementById('phone');
@@ -76,17 +83,20 @@
         let isHorizontal = false;
 
         function checkOrientation() {
+            const message = document.getElementById('message');
             if (window.innerHeight > window.innerWidth) {
                 // Вертикальное положение
                 phone.style.transform = 'rotate(0deg) scale(1)';
                 screen.style.backgroundColor = '#303030'; // Вернуть стандартный цвет
                 orientationValue.textContent = 'Вертикально';
+                message.textContent = 'Переверните экран, чтобы начать игру';
                 isHorizontal = false;
             } else {
                 // Горизонтальное положение, плавное увеличение
                 phone.style.transform = 'rotate(90deg) scale(1.5)';
                 screen.style.backgroundColor = '#505050'; // Изменение цвета экрана
                 orientationValue.textContent = 'Горизонтально';
+                message.textContent = 'Готово к игре!';
                 isHorizontal = true;
 
                 // Увеличение после задержки
@@ -119,6 +129,6 @@
             orientationValue.textContent = `Alpha: ${alpha.toFixed(2)}, Beta: ${beta.toFixed(2)}, Gamma: ${gamma.toFixed(2)}`;
         });
     </script>
-		<script src="https://telegram.org/js/telegram-web-app.js"></script>
+	<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
