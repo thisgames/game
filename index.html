@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ориентация устройства</title>
+	    <script>
+        function redirect() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Проверка, является ли устройство мобильным
+            if (/android|iPad|iPhone|iPod|mobile/i.test(userAgent)) {
+
+            } else {
+                // Перенаправление обратно в бота с командой
+                window.location.href = "https://t.me/SUPERPUPERTGFUNBOT?start=mobile";
+            }
+        }
+
+        // Выполняем перенаправление при загрузке страницы
+        window.onload = redirect;
+    </script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* Темный фон */
+            color: #ffffff; /* Белый текст */
+            overflow: hidden;
+        }
+
+        .phone {
+            width: 200px;
+            height: 400px;
+            background-color: #1e1e1e; /* Темный цвет телефона */
+            border: none; /* Убрали рамку */
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease; /* Плавный переход */
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .screen {
+            width: 180px;
+            height: 360px;
+            background-color: #303030; /* Темный цвет экрана */
+            border-radius: 15px;
+            transition: background-color 0.5s ease; /* Плавный переход для фона экрана */
+        }
+
+        #orientation {
+            font-size: 1.2em;
+            color: #ffffff; /* Белый текст для ориентации */
+        }
+    </style>
+</head>
+<body>
+    <div class="phone" id="phone">
+        <div class="screen" id="screen"></div>
+    </div>
+    <div id="orientation">Текущая ориентация: <span id="orientation-value">неизвестно</span></div>
+
+    <script>
+        const phone = document.getElementById('phone');
+        const screen = document.getElementById('screen');
+        const orientationValue = document.getElementById('orientation-value');
+        let isHorizontal = false;
+
+        function checkOrientation() {
+            if (window.innerHeight > window.innerWidth) {
+                // Вертикальное положение
+                phone.style.transform = 'rotate(0deg) scale(1)';
+                screen.style.backgroundColor = '#303030'; // Вернуть стандартный цвет
+                orientationValue.textContent = 'Вертикально';
+                isHorizontal = false;
+            } else {
+                // Горизонтальное положение, плавное увеличение
+                phone.style.transform = 'rotate(90deg) scale(1.5)';
+                screen.style.backgroundColor = '#505050'; // Изменение цвета экрана
+                orientationValue.textContent = 'Горизонтально';
+                isHorizontal = true;
+
+                // Увеличение после задержки
+                setTimeout(() => {
+                    if (isHorizontal) {
+                        phone.style.transform = 'rotate(90deg) scale(3)'; // Увеличение после поворота
+
+                        // Переход по ссылке после завершения анимации
+                        setTimeout(() => {
+                            window.location.href = 'http://dino.t-g.fun/game.php';
+                        }, 500); // Задержка перед переходом (500 мс)
+                    }
+                }, 1000); // Задержка перед вторым увеличением
+            }
+        }
+
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', checkOrientation);
+
+        // Начальная проверка при загрузке страницы
+        checkOrientation();
+
+        // Обработка события изменения ориентации устройства
+        window.addEventListener('deviceorientation', (event) => {
+            const alpha = event.alpha; // Угол поворота вокруг вертикальной оси
+            const beta = event.beta;   // Угол наклона устройства
+            const gamma = event.gamma; // Угол наклона устройства
+
+            // Обновление текста с углами ориентации
+            orientationValue.textContent = `Alpha: ${alpha.toFixed(2)}, Beta: ${beta.toFixed(2)}, Gamma: ${gamma.toFixed(2)}`;
+        });
+    </script>
+		<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</body>
+</html>
